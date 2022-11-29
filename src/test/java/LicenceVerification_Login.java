@@ -4,6 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -23,7 +26,7 @@ public class LicenceVerification_Login {
     }
 
     @Test(suiteName = "Licence key is present at login API response TC_ATST-80_step1")
-    public void checkLicenceKeyPresence(){
+    public void checkLicenceKeyPresence() {
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);
         System.out.println(profileBodyResp);
         Assert.assertTrue(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence") != null,
@@ -54,17 +57,27 @@ public class LicenceVerification_Login {
                 "The 'expiryDate' is absent at licence key");
     }
 
-    @Test(suiteName="Licence expiryDate value is not null verification on user's login TC_ATST-80_step5")
+    @Test(suiteName = "Licence expiryDate value is not null verification on user's login TC_ATST-80_step5")
     public void checkExpiryDateValueIsPresent() {
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);
         System.out.println(profileBodyResp);
         Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("expiryDate"),
                 "The expiryDate is null");
-}
+    }
+
     @Test(suiteName = "TO DO: Licence is not expired TC_ATST-80_step6")
-    public void checkLicenceIsNotExpired(){
+    public void checkLicenceIsNotExpired() {
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);
         System.out.println(profileBodyResp);
-
-}
+        String dateString = profileBodyResp.jsonPath().<Map<String, String>>getJsonObject("licence").get("expiryDate");
+        Date expiration = null;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss");
+        try {
+            expiration = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(expiration!= null && expiration.after(new Date()),
+        "The expiryDate has expired");
+    }
 }
