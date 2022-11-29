@@ -65,7 +65,7 @@ public class LicenceVerification_Login {
                 "The expiryDate is null");
     }
 
-    @Test(suiteName = "TO DO: Licence is not expired TC_ATST-80_step6")
+    @Test(suiteName = "Licence is not expired TC_ATST-80_step6")
     public void checkLicenceIsNotExpired() {
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);
         System.out.println(profileBodyResp);
