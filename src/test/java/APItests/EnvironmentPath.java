@@ -1,3 +1,5 @@
+package APItests;
+
 public class EnvironmentPath {
     public static String dev() {
         return "https://attestata.axamit.com";

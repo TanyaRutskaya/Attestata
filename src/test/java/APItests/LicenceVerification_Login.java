@@ -1,3 +1,5 @@
+package APItests;
+
 import com.google.gson.JsonObject;
 import io.restassured.response.ResponseBody;
 import org.testng.Assert;

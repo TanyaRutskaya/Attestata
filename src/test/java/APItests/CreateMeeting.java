@@ -1,3 +1,6 @@
+package APItests;
+
+import APItests.APIrequests;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
 import static io.restassured.RestAssured.given;
@@ -24,7 +27,7 @@ public class CreateMeeting {
                                "Accept",
                                ContentType.JSON)
                        .when()
-                    .queryParam(EnvironmentPath.qa() + APIrequests.profileMeetingCalendar())
+                    .queryParam(EnvironmentPath.dev() + APIrequests.profileMeetingCalendar())
                     .queryParam("upcoming", "true")
                     .queryParam("startDate","1666213200000")
                     .queryParam("notes", "Hello World")
@@ -34,7 +37,7 @@ public class CreateMeeting {
                      .queryParam("sentEmail","true")
                        .queryParam ("timeZone", "(GMT -5:00)")
                        .queryParam("dateWithUTC","1666213200000")
-                    .post(EnvironmentPath.qa()+APIrequests.profileMeetingCalendar())
+                    .post(EnvironmentPath.dev()+APIrequests.profileMeetingCalendar())
                        .body();
             return respBody.asPrettyString();
         }

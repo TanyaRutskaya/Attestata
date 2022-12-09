@@ -1,3 +1,8 @@
+package APItests;
+
+import APItests.APIrequests;
+import APItests.CreateMeeting;
+import APItests.EnvironmentPath;
 import io.restassured.response.ResponseBody;
 import org.testng.Assert;
 import static io.restassured.RestAssured.given;
@@ -10,10 +15,10 @@ public class MeetingSchedule {
 
     @BeforeTest
     public void setupTest() {
-        ResponseBody body = given().queryParam(EnvironmentPath.qa() + APIrequests.loginAPI())
-                .queryParam("username", "mariaberardinelli@hotmail.com")
+        ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
+                .queryParam("username", "john.doe@attestata.ca")
                 .queryParam("password", "Password123")
-                .get(EnvironmentPath.qa() + APIrequests.loginAPI())
+                .get(EnvironmentPath.dev() + APIrequests.loginAPI())
                 .body();
 
         sessionToken = body.jsonPath().get("accessToken");
@@ -26,7 +31,5 @@ public class MeetingSchedule {
                 Assert.assertTrue(meetingBodyResp.contains("Hello World"),
                 "The meeting list is not displayed");
     }
-
-
 }
 

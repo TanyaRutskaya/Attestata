@@ -1,3 +1,5 @@
+package APItests;
+
 public class APIrequests {
     public static String loginAPI() {
         return "/api/jwt/login";

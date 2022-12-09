@@ -1,6 +1,9 @@
+package APItests;
+
+import APItests.APIrequests;
+import APItests.EnvironmentPath;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
-import org.skyscreamer.jsonassert.JSONParser;
 
 import static io.restassured.RestAssured.given;
 
