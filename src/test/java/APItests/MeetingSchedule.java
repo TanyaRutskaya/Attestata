@@ -15,10 +15,10 @@ public class MeetingSchedule {
 
     @BeforeTest
     public void setupTest() {
-        ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
-                .queryParam("username", "john.doe@attestata.ca")
+        ResponseBody body = given().queryParam(EnvironmentPath.qa() + APIrequests.loginAPI())
+                .queryParam("username", "mariaberardinelli@hotmail.com")
                 .queryParam("password", "Password123")
-                .get(EnvironmentPath.dev() + APIrequests.loginAPI())
+                .get(EnvironmentPath.qa() + APIrequests.loginAPI())
                 .body();
 
         sessionToken = body.jsonPath().get("accessToken");
