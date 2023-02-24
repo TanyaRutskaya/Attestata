@@ -16,8 +16,8 @@ public class UserProfile {
                         "Accept",
                         ContentType.JSON)
                 .when()
-                .queryParam(EnvironmentPath.qa() + APIrequests.userProfile())
-                .get(EnvironmentPath.qa() + APIrequests.userProfile())
+                .queryParam(EnvironmentPath.dev() + APIrequests.userProfile())
+                .get(EnvironmentPath.dev() + APIrequests.userProfile())
                 .body();
         return respBody;
 

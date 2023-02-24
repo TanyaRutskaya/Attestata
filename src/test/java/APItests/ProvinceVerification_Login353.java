@@ -13,15 +13,15 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class ProvinceVerification_Login81 {
+public class ProvinceVerification_Login353 {
     private String sessionToken = null;
     private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
 
     @BeforeTest
     public void setupTest() {
-        ResponseBody body = given().queryParam(EnvironmentPath.qa() + APIrequests.loginAPI())
-                .queryParam("username", "mariaberardinelli@hotmail.com")
+        ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
+                .queryParam("username", "john.doe@attestata.ca")
                 .queryParam("password", "Password123")
                 .get(EnvironmentPath.qa() + APIrequests.loginAPI())
                 .body();
@@ -35,8 +35,7 @@ public class ProvinceVerification_Login81 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("billingAddress").containsKey("province"));
         resultMap.put("checkProvincePresenceWhileLogin", assertResult);
         Assert.assertTrue(assertResult, "The province is absent at billing address");
-    //    Assert.assertTrue(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("billingAddress").containsKey("province"),
-    //            "The province is absent at billing address");
+
     }
         @Test(suiteName = "billingAddress: 'province' is not null ")
         public void checkProvincevalueAtBilllingAddress(){
@@ -45,8 +44,7 @@ public class ProvinceVerification_Login81 {
             Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("billingAddress").get("province")!=null);
             resultMap.put("checkProvincevalueAtBilllingAddress", assertResult);
             Assert.assertTrue(assertResult, "The province value is null at billing address");
-      //  Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("billingAddress").get("province"),
-        //        "The province value is null at billing address");
+
     }
     @Test(suiteName = "userAddress has a province")
     public void checkProvincePresenceAtUserAddress (){
@@ -56,8 +54,6 @@ public class ProvinceVerification_Login81 {
         resultMap.put("checkProvincePresenceAtUserAddress", assertResult);
         Assert.assertTrue(assertResult, "The province is absent at userAddress");
 
-      //  Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("userAddress").get("province"),
-       //         "The province is absent at userAddress");
     }
     @Test(suiteName = "userAddress: 'province' is not null")
     public void checkProvinceValueAtUserAddress (){
@@ -66,8 +62,7 @@ public class ProvinceVerification_Login81 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("userAddress").containsKey("province"));
         resultMap.put("checkProvinceValueAtUserAddress", assertResult);
         Assert.assertTrue(assertResult, "The province value is null at user address");
-      //  Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("userAddress").containsKey("province"),
-      //          "The province value is null at user address");
+
     }
     @Test(suiteName = "licence has a province")
     public void checkProvinceValueAtLicenceKey (){
@@ -76,8 +71,7 @@ public class ProvinceVerification_Login81 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("province")!=null);
         resultMap.put("checkProvinceValueAtLicenceKey", assertResult);
         Assert.assertTrue(assertResult, "The province parameter is null at licence");
- //       Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("province"),
-  //              "The province parameter is null at licence");
+
     }
     @Test(suiteName = "licence: 'province' is not null")
     public void checkProvinceInNotNull (){
@@ -86,22 +80,20 @@ public class ProvinceVerification_Login81 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").containsKey("province"));
         resultMap.put("checkProvinceInNotNull", assertResult);
         Assert.assertTrue(assertResult, "The province value is null at licence");
-       // Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").containsKey("province"),
-       //         "The province value is null at licence");
+
     }
     @AfterTest
-    public void checkCase80Result() {
-        Boolean case80Res = true;
+    public void checkCase353Result() {
+        Boolean case353Res = true;
         for (String key : resultMap.keySet()) {
             if (!resultMap.get(key)) {
-                case80Res = false;
+                case353Res = false;
             }
         }
-        if (case80Res) {
-            RecordTestRunResult.passedTestRunRecord("81");
+        if (case353Res) {
+            RecordTestRunResult.passedTestRunRecord("353");
         } else {
-            RecordTestRunResult.failedTestRunRecord("81");
+            RecordTestRunResult.failedTestRunRecord("353");
         }
     }
-
 }

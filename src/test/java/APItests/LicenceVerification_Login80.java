@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 
@@ -21,17 +20,19 @@ public class LicenceVerification_Login80 {
     private String sessionToken = null;
     private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
+
     @BeforeTest
     public void setupTest() {
-        ResponseBody body = given().queryParam(EnvironmentPath.qa() + APIrequests.loginAPI())
-                .queryParam("username", "mariaberardinelli@hotmail.com")
-                .queryParam("password", "Password123")
-                .get(EnvironmentPath.qa() + APIrequests.loginAPI())
+
+        ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
+                .queryParam(UserManipulations.devUserWithoutSubscription()
+               // .queryParam("password", "Password123")
+                .get(EnvironmentPath.dev() + APIrequests.loginAPI())
                 .body();
         sessionToken = body.jsonPath().get("accessToken");
     }
 
-    @Test(suiteName = "Licence key is present at login API response TC_ATST-80_step1")
+    @Test(suiteName = "Licence key is present at profile API response TC_ATST-80_step1")
     public void checkLicenceKeyPresence(){
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);
         System.out.println(profileBodyResp);
