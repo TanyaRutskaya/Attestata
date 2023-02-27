@@ -20,9 +20,11 @@ public class ProvinceVerification_Login353 {
 
     @BeforeTest
     public void setupTest() {
+        UserManipulations userCreds = UserManipulations.devUserWithoutSubscription();
+
         ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
-                .queryParam("username", "john.doe@attestata.ca")
-                .queryParam("password", "Password123")
+                .queryParam("username", userCreds.name)
+                .queryParam("password", userCreds.pass)
                 .get(EnvironmentPath.qa() + APIrequests.loginAPI())
                 .body();
 

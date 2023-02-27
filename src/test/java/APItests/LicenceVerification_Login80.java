@@ -24,9 +24,11 @@ public class LicenceVerification_Login80 {
     @BeforeTest
     public void setupTest() {
 
+        UserManipulations userCreds = UserManipulations.devUserWithoutSubscription();
+
         ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
-                .queryParam(UserManipulations.devUserWithoutSubscription()
-               // .queryParam("password", "Password123")
+                .queryParam("username", userCreds.name)
+                .queryParam("password", userCreds.pass)
                 .get(EnvironmentPath.dev() + APIrequests.loginAPI())
                 .body();
         sessionToken = body.jsonPath().get("accessToken");
@@ -39,8 +41,7 @@ public class LicenceVerification_Login80 {
         Boolean assertResult =(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence") != null);
         resultMap.put("checkLicenceKeyPresence",assertResult);
         Assert.assertTrue(assertResult, "The licence key is absent");
-//            Assert.assertTrue(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence") != null,
-//                    "The licence key is absent");
+
         }
 
     @Test(suiteName = "Licence Key has LicenceNumber value TC_ATST-80_step2")
@@ -50,8 +51,7 @@ public class LicenceVerification_Login80 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("licenceNumber")!=null);
         resultMap.put("checkLicenceNumberKeyIsPresent",assertResult);
         Assert.assertTrue(assertResult, "The 'licenceNumber' value is absent at licence key");
-//        Assert.assertNotNull(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("licenceNumber"),
-//                "The 'licenceNumber' value is absent at licence key");
+
    }
 
     @Test(suiteName = "LicenceNumber value is present TC_ATST-80_step3")
@@ -62,8 +62,7 @@ public class LicenceVerification_Login80 {
         resultMap.put("checkLicenceNumberValueIsPresent",assertResult);
         Assert.assertTrue(assertResult, "The LicenceNumber value is absent");
 
-//        Assert.assertTrue(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").containsKey("licenceNumber"),
-//                "The LicenceNumber value is absent");
+
     }
 
     @Test(suiteName = "Licence expiryDate Key presence verification TC_ATST-80_step4")

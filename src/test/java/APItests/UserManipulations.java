@@ -1,39 +1,30 @@
 package APItests;
 
-public class UserManipulations {
+public final class UserManipulations {
 
          String name;
-         String pass;
+         String pass="Password123";
 
          public UserManipulations(String name){
              this.name = name;
-             this.pass = "Password123";
          }
 
 
-    public static void devUserWithoutSubscription(String name) {
-        UserManipulations devUserWithoutSubscription = new UserManipulations("natacha_beaudoin@icloud.com");
+    public static UserManipulations devUserWithoutSubscription() {
+        return new UserManipulations("natacha_beaudoin@icloud.com");
    }
 
-
-
-
-
-
-    public void devUserWithSubscrition(){
-       userName= "tbeliveau@munsar.ca";
-        password ="Password123";
-        return;
-
+    public static UserManipulations devUserWithSubscrition() {
+        return new UserManipulations("tbeliveau@munsar.ca");
     }
-    public void qaUserWithoutSubscribtion(){
-        userName = "natacha_beaudoin@icloud.com";
-        password ="Password123";
-        return;
+
+    public static UserManipulations qaUserWithoutSubscribtion() {
+        return new UserManipulations("natacha_beaudoin@icloud.com");
     }
-    public void qaUserWithSubscribtion(){
-        userName = "tatyana.bunimovich@tc.tc";
-        password ="Password123";
-        return;
-    }}
+
+    public static UserManipulations qaUserWithSubscribtion() {
+        return new UserManipulations("tatyana.bunimovich@tc.tc");
+    }
+
+ }
 
