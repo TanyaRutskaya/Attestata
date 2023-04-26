@@ -14,12 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static APItests.LoginWithValidCredentials.sessionToken;
 import static io.restassured.RestAssured.given;
 
 public class LicenceVerification_Login80 {
-    private String sessionToken = null;
-    private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
+    private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
     @BeforeTest
     public void setupTest() {
@@ -41,7 +41,6 @@ public class LicenceVerification_Login80 {
         Boolean assertResult =(profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence") != null);
         resultMap.put("checkLicenceKeyPresence",assertResult);
         Assert.assertTrue(assertResult, "The licence key is absent");
-
         }
 
     @Test(suiteName = "Licence Key has LicenceNumber value TC_ATST-80_step2")
@@ -51,7 +50,6 @@ public class LicenceVerification_Login80 {
         Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").get("licenceNumber")!=null);
         resultMap.put("checkLicenceNumberKeyIsPresent",assertResult);
         Assert.assertTrue(assertResult, "The 'licenceNumber' value is absent at licence key");
-
    }
 
     @Test(suiteName = "LicenceNumber value is present TC_ATST-80_step3")
@@ -61,8 +59,6 @@ public class LicenceVerification_Login80 {
     Boolean assertResult = (profileBodyResp.jsonPath().<Map<String, JsonObject>>getJsonObject("licence").containsKey("licenceNumber"));
         resultMap.put("checkLicenceNumberValueIsPresent",assertResult);
         Assert.assertTrue(assertResult, "The LicenceNumber value is absent");
-
-
     }
 
     @Test(suiteName = "Licence expiryDate Key presence verification TC_ATST-80_step4")
@@ -113,6 +109,4 @@ public void checkCase80Result() {
         RecordTestRunResult.failedTestRunRecord("80");
     }
 }
-
 }
-

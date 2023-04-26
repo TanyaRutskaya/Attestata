@@ -20,6 +20,5 @@ public class UserProfile {
                 .get(EnvironmentPath.dev() + APIrequests.userProfile())
                 .body();
         return respBody;
-
     }
 }

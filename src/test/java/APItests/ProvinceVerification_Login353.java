@@ -11,25 +11,18 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static APItests.LoginWithValidCredentials.sessionToken;
 import static io.restassured.RestAssured.given;
 
 public class ProvinceVerification_Login353 {
-    private String sessionToken = null;
     private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
 
     @BeforeTest
     public void setupTest() {
-        UserManipulations userCreds = UserManipulations.devUserWithoutSubscription();
-
-        ResponseBody body = given().queryParam(EnvironmentPath.dev() + APIrequests.loginAPI())
-                .queryParam("username", userCreds.name)
-                .queryParam("password", userCreds.pass)
-                .get(EnvironmentPath.qa() + APIrequests.loginAPI())
-                .body();
-
-        sessionToken = body.jsonPath().get("accessToken");
+        LoginWithValidCredentials.DevUserAuthorizedToken();
     }
+
     @Test(suiteName = "PROVINCE is present at billingAddress")
     public void checkProvincePresenceWhileLogin() {
         ResponseBody profileBodyResp = UserProfile.profile(sessionToken);

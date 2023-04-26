@@ -10,6 +10,7 @@ public class APIrequests {
         return "/api/profile/calendar";
 }
     public static String userProfile() {
+
         return "/api/profile";
     }
 

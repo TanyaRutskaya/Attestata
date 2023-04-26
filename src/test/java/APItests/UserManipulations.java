@@ -2,8 +2,8 @@ package APItests;
 
 public final class UserManipulations {
 
-         String name;
-         String pass="Password123";
+         public String name;
+         public String pass="Password123";
 
          public UserManipulations(String name){
              this.name = name;
