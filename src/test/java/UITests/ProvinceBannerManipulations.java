@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
-public class ProvinceBanner {
+public class ProvinceBannerManipulations {
     public static SelenideElement
             submitProvinceButton = $(By.xpath(".//button[contains (text() ,\"Confirm\")]")),
             selectProvinceModalForm = $(By.xpath(".//div[starts-with(@class, \"modal-content\")]"));
@@ -15,4 +15,5 @@ public class ProvinceBanner {
         submitProvinceButton.click();
         selectProvinceModalForm.shouldNotBe(visible);
     }
+
 }

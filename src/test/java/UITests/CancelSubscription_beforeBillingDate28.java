@@ -33,15 +33,16 @@ public class CancelSubscription_beforeBillingDate28 {
     public void setupTest() {
         open(EnvironmentPath.dev());
         refresh();
-        ProvinceBanner.selectProvinceModalForm.shouldBe(visible);
-        ProvinceBanner.submitProvince_Banner();
+        ProvinceBannerManipulations.selectProvinceModalForm.shouldBe(visible);
+        ProvinceBannerManipulations.submitProvince_Banner();
         AuthorizationManipulations.AuthorizeUser();
-        open(EnvironmentPath.dev() + "/billing-and-invoices");
+        open(EnvironmentPath.dev() + "/fr/billing-and-invoices");
     }
 
     @Test(suiteName = "Click Cancel button and verify modal form Fr version")
     public void cancelBeforeBillingDate_modalFormCheck_Fr() {
 
+        refresh();
         modalFormRUSureIsDisplayed_Fr();
         Boolean assertResult = sorryToSeeUGoDescription_modalFormFr.isDisplayed() && sorryToSeeUGoHeader_modalFormFr.isDisplayed();
         resultMap.put("cancelBeforeBillingDate_modalFormCheck_Fr", assertResult);
@@ -50,26 +51,36 @@ public class CancelSubscription_beforeBillingDate28 {
 
     @Test(suiteName = "Click Cancel button and verify modal form En version")
     public void cancelBeforeBillingDate_modalFormCheck_En() {
-
         modalFormRUSureIsDisplayed_En();
         Boolean assertResult = sorryToSeeUGoHeader_modalFormEn.isDisplayed() && sorryToSeeUGoDescription_modalFormEn.isDisplayed();
         resultMap.put("cancelBeforeBillingDate_modalFormCheck_En", assertResult);
         Assert.assertTrue(assertResult, "En_The header of the modal form is not displayed or wrong");
-    }
-
-    @Test(suiteName = "Undo button being pressed at remains the subscription")
-    public void undoButtonPressed_subscriptionSaved(){
 
     }
 
-//            $("#cancel-subscription-modal .modal-footer button").shouldHave(text("Undo"));
-//            $("#cancel-subscription-modal .modal-footer button").shouldHave(text("Cancel"));
-//
-//            // Step 2: Click Undo button and verify modal form is closed and subscription remains
-//            $("#cancel-subscription-modal .modal-footer button:contains('Undo')").click();
-//            $("#cancel-subscription-modal").shouldNotBe(visible);
-//            $("#cancel-subscription-button").shouldBe(enabled);
-//
+    @Test(suiteName = "Undo button being pressed-the subscription remains")
+    public void undoButtonPressed_subscriptionRemains() {
+        refresh();
+        undoCancelingSubscription();
+        Boolean assertResult = cancelSubscriptionButton.isDisplayed()&& subscribePlanButton.isDisplayed() ;
+        resultMap.put("undoButtonPressed_subscriptionRemains", assertResult);
+        Assert.assertTrue(assertResult, "The subscription cancellation being UNDONE, fails");
+    }
+    @Test (suiteName = "Subscription is cancelled succesfully")
+    public void cancelButtonPressed_subscriptionCancelled(){
+        refresh();
+        confirmCancelling();
+        Boolean assertResult = !cancelSubscriptionButton.isDisplayed()&& !subscribePlanButton.isDisplayed() ;
+        resultMap.put("cancelButtonPressed_subscriptionCancelled", assertResult);
+        Assert.assertTrue(assertResult, "The subscription failed to be cancelled");
+    }
+    @Test(suiteName = "As soon as subscription is cancelled, meeting session cannot be started")
+    public void CancelledSubscription_meetingSessionFailsToStart(){
+        refresh();
+        confirmCancelling();
+    }
+
+//TO DO:
 //            // Step 3: Click Cancel button again and confirm cancellation
 //            $("#cancel-subscription-button").click();
 //            $("#cancel-subscription-modal .modal-footer button:contains('Cancel Subscription')").click();
@@ -99,5 +110,4 @@ public class CancelSubscription_beforeBillingDate28 {
             RecordTestRunResult.failedTestRunRecord("28");
         }
     }
-
 }
