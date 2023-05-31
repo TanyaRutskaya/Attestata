@@ -3,8 +3,7 @@ package UITests;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.refresh;
 
@@ -25,6 +24,8 @@ public class CancelSubscriptionManipulations {
             subscribePlanButton = $(By.cssSelector(".E1aR8")),
             subscriptionPlanBaner = $(By.xpath("//div/div[3]/div[2]/div[1]/div[2]/div[1]/h3")),
             successModalForm =$(By.xpath("")),
+            warningToastMessage=$(By.xpath("")),
+            textAboveCancelButton=$(By.xpath("")),
             confimCancellingButton= $(By.xpath("//div[2]/div/div[1]/div/div/div[2]/div/div[2]/div[2]/button"));
 
 
@@ -61,7 +62,8 @@ public class CancelSubscriptionManipulations {
         confimCancellingButton.click();
         sorryToSeeUGoHeader_modalForm.shouldNotBe(visible);
         successModalForm.shouldBe(visible);
-
+        warningToastMessage.shouldBe(visible);
+        textAboveCancelButton.shouldBe(visible);
     }
 
     static public void scheduleMetingButtonClick() {

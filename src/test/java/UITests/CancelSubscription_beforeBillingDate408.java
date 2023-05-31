@@ -7,6 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.Assert;
 
 import static UITests.CancelSubscriptionManipulations.*;
+import static UITests.MyMeetingsPage.MeetingListPageManipulations.*;
 import static com.codeborne.selenide.Condition.*;
 
 import org.testng.annotations.AfterTest;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class CancelSubscription_beforeBillingDate28 {
+public class CancelSubscription_beforeBillingDate408 {
 
     private Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
 
@@ -31,12 +32,12 @@ public class CancelSubscription_beforeBillingDate28 {
 
     @BeforeTest
     public void setupTest() {
-        open(EnvironmentPath.dev());
+        open(EnvironmentPath.qa());
         refresh();
         ProvinceBannerManipulations.selectProvinceModalForm.shouldBe(visible);
         ProvinceBannerManipulations.submitProvince_Banner();
         AuthorizationManipulations.AuthorizeUser();
-        open(EnvironmentPath.dev() + "/fr/billing-and-invoices");
+        open(EnvironmentPath.qa() + "/fr/billing-and-invoices");
     }
 
     @Test(suiteName = "Click Cancel button and verify modal form Fr version")
@@ -66,48 +67,38 @@ public class CancelSubscription_beforeBillingDate28 {
         resultMap.put("undoButtonPressed_subscriptionRemains", assertResult);
         Assert.assertTrue(assertResult, "The subscription cancellation being UNDONE, fails");
     }
-    @Test (suiteName = "Subscription is cancelled succesfully")
+    @Test (suiteName = "Subscription is cancelled successfully")
     public void cancelButtonPressed_subscriptionCancelled(){
         refresh();
         confirmCancelling();
-        Boolean assertResult = !cancelSubscriptionButton.isDisplayed()&& !subscribePlanButton.isDisplayed() ;
+        Boolean assertResult = warningToastMessage.isDisplayed()&& cancelSubscriptionButton.isDisplayed()&&textAboveCancelButton.isDisplayed();
         resultMap.put("cancelButtonPressed_subscriptionCancelled", assertResult);
         Assert.assertTrue(assertResult, "The subscription failed to be cancelled");
     }
-    @Test(suiteName = "As soon as subscription is cancelled, meeting session cannot be started")
-    public void CancelledSubscription_meetingSessionFailsToStart(){
+
+    @Test(suiteName = "As soon as subscription is cancelled, meeting session can be started")
+    public void CancelledSubscription_meetingSessionStarted(){
         refresh();
         confirmCancelling();
+        open("https://qa-attestata.axamit.com/fr/my-meetings");
+        meetingStart();
+        Boolean assertResult = endSessionButton.isDisplayed();
+        resultMap.put("CancelledSubscription_meetingSessionStarted", assertResult);
+        Assert.assertTrue(assertResult, "The meeting session failed to start");
     }
 
-//TO DO:
-//            // Step 3: Click Cancel button again and confirm cancellation
-//            $("#cancel-subscription-button").click();
-//            $("#cancel-subscription-modal .modal-footer button:contains('Cancel Subscription')").click();
-//            $(".toast-message").shouldHave(text("Subscription expires on"));
-//
-//            // Step 4: Verify subscription is cancelled and text is displayed
-//            open("/billing-and-invoices");
-//            $("#cancel-subscription-button").shouldBe(disabled);
-//            $(".subscription-status").shouldHave(text("Subscription is canceled. Video calls are available until"));
-//            $(".next-billing-date").shouldHave(text("Subscription is canceled. Video calls are available until"));
-//
-//            // Step 5: Verify video calls are disabled on next billing date
-//            open("/start-meeting");
-//            $(".disabled-message").shouldHave(text("Video calls are disabled on the next billing date"));
-
     @AfterTest
-    public void checkCase28Result() {
-        Boolean case28Res = true;
+    public void checkCase408Result() {
+        Boolean case408Res = true;
         for (String key : resultMap.keySet()) {
             if (!resultMap.get(key)) {
-                case28Res = false;
+                case408Res = false;
             }
         }
-        if (case28Res) {
-            RecordTestRunResult.passedTestRunRecord("28");
+        if (case408Res) {
+            RecordTestRunResult.passedTestRunRecord("408");
         } else {
-            RecordTestRunResult.failedTestRunRecord("28");
+            RecordTestRunResult.failedTestRunRecord("408");
         }
     }
 }

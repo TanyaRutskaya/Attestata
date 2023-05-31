@@ -17,7 +17,7 @@ public class MeetingSchedule {
     }
 
     @Test(suiteName = "Updated meeting List is displayed and a new meeting is created")
-    public void checkMeetingList() {
+    public static void checkMeetingList() {
         String meetingBodyResp = CreateMeeting.addMeeting(sessionToken);
         System.out.println(meetingBodyResp);
         Assert.assertTrue(meetingBodyResp.contains("Hello World"),

@@ -15,6 +15,11 @@ public class EnvironmentPath {
     public static String prod() {
         return "https://attestata.com";
     }
+    public static String adminDev(){
+        return "http://192.168.31.60:8091";
+    }
 
-
+    public static String adminQA(){
+        return "http://192.168.31.63:8091";
+    }
 }
