@@ -26,6 +26,7 @@ public class AuthorizationManipulations {
         emailField.sendKeys(userCreds.name);
         passwordField.sendKeys(userCreds.pass);
         authorizationSubmitButton.click();
+        scheduleMeetingButton.isDisplayed();
         signInButton.shouldNotBe(visible);
     }
 

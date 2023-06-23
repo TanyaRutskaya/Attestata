@@ -36,12 +36,12 @@ public class CalendarClickable446 {
         ProvinceBannerManipulations.selectProvinceModalForm.shouldBe(visible);
         ProvinceBannerManipulations.submitProvince_Banner();
         AuthorizationManipulations.AuthorizeUser();
+
         open(EnvironmentPath.qa() + "/fr/my-meetings");
     }
 
     @Test(suiteName = "Today date is orange")
     public void calendarOrangeDateMarker() {
-
         String actual = calendarTodayColor();
         String expected = "#f5593d";
         Boolean assertResult = actual.equals(expected);
@@ -49,18 +49,28 @@ public class CalendarClickable446 {
         Assert.assertEquals(actual, expected, "Today's date is not an orange color");
     }
 
-    @AfterTest
-    public void checkCase446Result() {
-        Boolean case446Res = true;
-        for (String key : resultMap.keySet()) {
-            if (!resultMap.get(key)) {
-                case446Res = false;
-            }
-        }
-        if (case446Res) {
-            RecordTestRunResult.passedTestRunRecord("446");
-        } else {
-            RecordTestRunResult.failedTestRunRecord("446");
-        }
-}
+    @Test (suiteName="Tomorrow date is orange circle")
+    public void checktomorrowDate(){
+        calendarTomorrowColor();
+        String actual = calendarTomorrowColor();
+        String expected = "#f5593d";
+        Boolean assertResult = actual.equals(expected);
+        resultMap.put("checktomorrowDate", assertResult);
+        Assert.assertEquals(actual, expected, "Tomorrow's date is not an orange circle");
+    }
+
+//    @AfterTest
+//    public void checkCase446Result() {
+//        Boolean case446Res = true;
+//        for (String key : resultMap.keySet()) {
+//            if (!resultMap.get(key)) {
+//                case446Res = false;
+//            }
+//        }
+//        if (case446Res) {
+//            RecordTestRunResult.passedTestRunRecord("446");
+//        } else {
+//            RecordTestRunResult.failedTestRunRecord("446");
+//        }
+//}
 }
